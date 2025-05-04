@@ -10,4 +10,8 @@
     <Folder Include="Vacancies\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\HuntPlatform.DataAccess\HuntPlatform.DataAccess.csproj" />
+  </ItemGroup>
+
 </Project>

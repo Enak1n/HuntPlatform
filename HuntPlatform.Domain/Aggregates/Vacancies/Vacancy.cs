@@ -19,6 +19,13 @@ public sealed class Vacancy : Entity<Guid>
 
     public DateTime EditedDate { get; private set; }
 
+    public Region Region { get; private set; }
+
+    /// <summary>
+    /// For DbContext migrations
+    /// </summary>
+    private Vacancy() { }
+
     private Vacancy(
         Guid id,
         string name,
@@ -26,7 +33,8 @@ public sealed class Vacancy : Entity<Guid>
         byte workExperience,
         WorkFormat workFormat,
         string description,
-        DateTime dateOfCreation)
+        DateTime dateOfCreation,
+        Region region)
         : base(id)
     {
         Name = name;
@@ -36,6 +44,7 @@ public sealed class Vacancy : Entity<Guid>
         Description = description;
         DateOfCreation = dateOfCreation;
         EditedDate = dateOfCreation;
+        Region = region;
     }
 
     public static Vacancy Create(Guid id,
@@ -44,7 +53,8 @@ public sealed class Vacancy : Entity<Guid>
         byte workExperience,
         WorkFormat workFormat,
         string description,
-        DateTime dateOfCreation)
+        DateTime dateOfCreation,
+        Region region)
     {
         if (string.IsNullOrEmpty(name) || string.IsNullOrWhiteSpace(name))
             throw new VallidationVacancyException("Vacancy name can not be empty!");
@@ -52,7 +62,7 @@ public sealed class Vacancy : Entity<Guid>
         if (salary < 0)
             throw new VallidationVacancyException("Salary must be greater than zero");
 
-        return new Vacancy(id, name, salary, workExperience, workFormat, description, dateOfCreation);
+        return new Vacancy(id, name, salary, workExperience, workFormat, description, dateOfCreation, region);
     }
 }
 
